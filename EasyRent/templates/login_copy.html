@@ -1,0 +1,35 @@
+{% extends "login_base.html" %}
+{% block content %}
+
+    <script type="text/javascript">
+    </script>
+
+    <div class="container">
+        <div class="vertical-center" style="width:300px;">
+            <form class="form" method="post" action="">
+                <div style="color:#FFFFFF"><h2>登录</h2></div>
+                <div style="margin-bottom: 10px;">
+                    <input name="username" class="form-control" placeholder="请输入用户名" required=""
+                           autofocus=""
+                    {% if request.cookies.get('username') %}
+                        value="{{ request.cookies.get('username') }}"
+                    {% endif %}>
+                </div>
+                <input type="password" name="password" class="form-control" placeholder="请输入密码" required=""
+                        {% if request.cookies.get('password') %}
+                            value="{{ request.cookies.get('password') }}"
+                        {% endif %}>
+                <div class="checkbox" style="color:#FFFFFF">
+                    <label>
+                        <input type="checkbox" name="remember_me"> 请记住我
+                    </label>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+            </form>
+            {% if error %}
+                <p class="text-danger">{{ error }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

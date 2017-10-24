@@ -1,0 +1,34 @@
+﻿SSH  
+root  ymb1993SLL1993
+
+FTP
+uftp ymb1993SLL1993
+
+Address
+112.74.48.20 
+
+查询端口是否打开（防火墙）
+firewall-cmd --query-port=5000/tcp
+查看防火墙状态
+systemctl status firewalld
+关闭防火墙
+systemctl stop firewalld
+开启防火墙
+systemctl start firewalld
+
+查看进程
+ps -ax|grep runserver
+杀死进程
+kill -9 pid
+后台运行
+nohup python runserver.py &
+查看端口
+netstat -an|grep 80
+netstat -tunlp|grep 80
+
+
+后台运行uwsgi
+uwsgi uwsgiconfig.ini --daemonize uwsgi.log
+
+创建文件
+touch filename
