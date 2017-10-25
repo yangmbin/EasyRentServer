@@ -193,6 +193,7 @@ def get_house_info(size, page):
 
         # dictData = dict(rows[0].items())
         jsonData = json.dumps([(dict(row.items())) for row in rows])
+        DBSession.commit()
         DBSession.close()
 
         print jsonData
@@ -205,6 +206,7 @@ def get_contact():
     res = DBSession.execute(text('select * from contact'))
     row = res.fetchone()
     jsonData = json.dumps(dict(row.items()))
+    DBSession.commit()
     DBSession.close()
 
     print jsonData
