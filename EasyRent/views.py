@@ -12,8 +12,12 @@ from urllib import urlopen, quote
 from EasyRent import app, DBSession
 
 
+# 贵漂公寓主页
+@app.route('/')
+def main_page():
+    return render_template('mainpage.html')
+
 # 登录函数
-@app.route('/', methods=['GET', 'POST'])
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     # 如果已经登录，则重定向到主页

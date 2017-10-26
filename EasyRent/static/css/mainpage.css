@@ -1,0 +1,22 @@
+* {font-family: Arial; margin: 0;padding: 0; border: none;}
+a{text-decoration: none;}
+u1{list-style: none;}
+
+header{position: relative; height: 85px;width: 100%;background-color: #2e2e2e;}
+.container{width: 100%;margin: 0 auto;}
+.container > a{display: block;float: left;margin: 10px 135px;}
+.container > div{float: right;}
+.bs a{color: #fff;} /*字体颜色*/
+.bs a:hover {color:#f46208; background-color: #2e2e2e;}/*字体改变颜色*/
+.container > div > a{position: relative;float: left;text-align: center;margin: 30px 30px;}
+
+
+
+
+
+
+
+
+
+
+
