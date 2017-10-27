@@ -101,8 +101,12 @@ def add_house_info():
             'insert into house(city, region, images, address, minprice, maxprice, renttype, installation_wifi, installation_kitchen, installation_hoods, installation_water_heater, installation_washer, installation_toilet, pay_month, pay_season, pay_half, pay_year, longimage, lat, lng)' +
             'values(:city, :region, :images, :address, :minprice, :maxprice, :renttype, :installation_wifi, :installation_kitchen, :installation_hoods, :installation_water_heater, :installation_washer, :installation_toilet, :pay_month, :pay_season, :pay_half, :pay_year, :longimage, :lat, :lng)'),
                           params)
-        DBSession.commit()
-        DBSession.close()
+        try:
+            DBSession.commit()
+        except:
+            DBSession.rollback()
+        finally:
+            DBSession.close()
         app.logger.error('添加成功')
         flash('添加成功')
         # return redirect(url_for('add_house_info'))
@@ -197,8 +201,12 @@ def get_house_info(size, page):
 
         # dictData = dict(rows[0].items())
         jsonData = json.dumps([(dict(row.items())) for row in rows])
-        DBSession.commit()
-        DBSession.close()
+        try:
+            DBSession.commit()
+        except:
+            DBSession.rollback()
+        finally:
+            DBSession.close()
 
         print jsonData
         return jsonData
@@ -210,8 +218,12 @@ def get_contact():
     res = DBSession.execute(text('select * from contact'))
     row = res.fetchone()
     jsonData = json.dumps(dict(row.items()))
-    DBSession.commit()
-    DBSession.close()
+    try:
+        DBSession.commit()
+    except:
+        DBSession.rollback()
+    finally:
+        DBSession.close()
 
     print jsonData
     return jsonData
