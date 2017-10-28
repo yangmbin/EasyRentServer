@@ -5,7 +5,7 @@ import uuid
 from copy import deepcopy
 from flask import render_template, redirect, request, session, url_for, make_response, flash, jsonify, json
 from qiniu import Auth, put_file
-from sqlalchemy import text
+from sqlalchemy import text, select
 import json
 from urllib import urlopen, quote
 
@@ -16,6 +16,7 @@ from EasyRent import app, DBSession
 @app.route('/')
 def main_page():
     return render_template('mainpage.html')
+
 
 # 登录函数
 @app.route('/login', methods=['GET', 'POST'])
@@ -97,16 +98,13 @@ def add_house_info():
         params['lng'] = lng
 
         # 插入数据到数据库
+        check_session_validation()
         DBSession.execute(text(
             'insert into house(city, region, images, address, minprice, maxprice, renttype, installation_wifi, installation_kitchen, installation_hoods, installation_water_heater, installation_washer, installation_toilet, pay_month, pay_season, pay_half, pay_year, longimage, lat, lng)' +
             'values(:city, :region, :images, :address, :minprice, :maxprice, :renttype, :installation_wifi, :installation_kitchen, :installation_hoods, :installation_water_heater, :installation_washer, :installation_toilet, :pay_month, :pay_season, :pay_half, :pay_year, :longimage, :lat, :lng)'),
-                          params)
-        try:
-            DBSession.commit()
-        except:
-            DBSession.rollback()
-        finally:
-            DBSession.close()
+            params)
+        DBSession.commit()
+
         app.logger.error('添加成功')
         flash('添加成功')
         # return redirect(url_for('add_house_info'))
@@ -153,6 +151,20 @@ def uploadFileToServer():
 
 
 # ====================================================================客户端相关接口====================================================================
+# 每次请求完毕后，移除数据库session
+@app.teardown_appcontext
+def shutdown_session(exception=None):
+    DBSession.remove()
+
+# 每次数据库请求前，检查session是否可用
+def check_session_validation():
+    try:
+        DBSession.scalar(select([1]))
+    except:
+        DBSession.rollback()
+        DBSession.scalar(select([1]))
+
+
 @app.route('/get_house_info/<int:size>/<int:page>', methods=['POST'])
 def get_house_info(size, page):
     # res叫做ResultProxy      rows[0]叫做RowProxy
@@ -194,19 +206,16 @@ def get_house_info(size, page):
             priceSql = ' and maxprice>2500 '
 
         offset = (page - 1) * size
-        res = DBSession.execute(text('select * from house' + regionSql + priceSql + 'order by id DESC limit :offset, :size'),
-                                {'offset': offset, 'size': size})
+        check_session_validation()
+        res = DBSession.execute(
+            text('select * from house' + regionSql + priceSql + 'order by id DESC limit :offset, :size'),
+            {'offset': offset, 'size': size})
         rows = res.fetchall()
         # print rows[0].id
 
         # dictData = dict(rows[0].items())
         jsonData = json.dumps([(dict(row.items())) for row in rows])
-        try:
-            DBSession.commit()
-        except:
-            DBSession.rollback()
-        finally:
-            DBSession.close()
+        DBSession.commit()
 
         print jsonData
         return jsonData
@@ -215,15 +224,11 @@ def get_house_info(size, page):
 # 获取联系方式
 @app.route('/get_contact')
 def get_contact():
+    check_session_validation()
     res = DBSession.execute(text('select * from contact'))
     row = res.fetchone()
     jsonData = json.dumps(dict(row.items()))
-    try:
-        DBSession.commit()
-    except:
-        DBSession.rollback()
-    finally:
-        DBSession.close()
+    DBSession.commit()
 
     print jsonData
     return jsonData

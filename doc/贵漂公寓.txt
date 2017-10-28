@@ -5,7 +5,9 @@ FTP
 uftp ymb1993SLL1993
 
 Address
-112.74.48.20 
+112.74.48.20  轻量服务器
+ECS 远程连接密码 938338
+
 
 查询端口是否打开（防火墙）
 firewall-cmd --query-port=5000/tcp
