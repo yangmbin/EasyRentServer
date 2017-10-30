@@ -150,6 +150,17 @@ def uploadFileToServer():
         return redirect(url_for('uploadFileToQiniu'))
 
 
+# 修改联系方式
+@app.route('/edit_contact', methods=['GET', 'POST'])
+def edit_contact():
+    if request.method == 'POST':
+        check_session_validation()
+        DBSession.execute(text('update contact set phone = :contact where id = 1'), request.form)
+        DBSession.commit()
+        return jsonify({'code': 200, 'msg': '修改成功'})
+
+    return render_template('edit_contact.html')
+
 # ====================================================================客户端相关接口====================================================================
 # 每次请求完毕后，移除数据库session
 @app.teardown_appcontext
