@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <script>
+        // 获取所有租房信息，用于下拉框显示
+        window.onload = function () {
+            var message = '{{ get_flashed_messages()[0] }}';
+            if (message != undefined && message != '')
+                noty({text: message, layout: "center", timeout: 1000});
+
+            var url = "/get_all_house_info";
+            $.get(url, function (result) {
+                var obj = JSON.parse(result);
+                for (var i = 0; i < obj.length; i++) {
+                    $("#address").append("<option value=" + obj[i].id + ">" + obj[i].city + obj[i].region + obj[i].address + "</option>");
+                }
+            });
+        }
+
+        // 上传图片函数
+        function uploadFile(obj) {
+            var myform = new FormData();
+            myform.append('file', $('#fileInput' + obj)[0].files[0]);
+            $.ajax({
+                url: "/uploadFileToServer",
+                type: "POST",
+                data: myform,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    console.log(data);
+                    noty({text: data.msg, layout: "center", timeout: 1000});
+                    if (data.code == 200) {
+                        {#alert(data.path);#}
+                        $('#fileInput' + obj).attr("disabled", true);
+                        $('#file' + obj).val(data.path);
+                    }
+                },
+                error: function (data) {
+                    console.log(data)
+                }
+            });
+        }
+
+        // 添加推荐公寓
+        function addRecommend() {
+            var url = "/add_recommend";
+            // 推荐图必传
+            if ($("#file1").val() == undefined || $("#file1").val() == "") {
+                noty({text: "请上传推荐图", layout: "center", timeout: 1000});
+                return;
+            }
+            var image = $("#file1").val();
+            var houseid = $("#address").val();
+            params = {
+                "image": image,
+                "houseid": houseid
+            };
+            $.post(url, params, function (result) {
+                if (result.code == 200)
+                    window.location = "/add_recommend";
+            });
+        }
+
+    </script>
+
+    <!-- start: Content -->
+    <div id="content" class="span10">
+
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home"></i>
+                <a href="">主页</a>
+                <i class="icon-angle-right"></i>
+            </li>
+            <li>
+                <i class="icon-edit"></i>
+                <a href="#">推荐公寓添加</a>
+            </li>
+        </ul>
+
+        {#第一个表单#}
+        <div class="row-fluid sortable">
+            <div class="box span12">
+                <div class="box-header" data-original-title>
+                    <h2><i class="halflings-icon white edit"></i><span class="break"></span>添加</h2>
+                    <div class="box-icon">
+                        <a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <form class="form-horizontal" method="post" action="">
+                        <fieldset>
+
+
+                            {#banner图片#}
+                            <div class="control-group">
+                                <label class="control-label" for="fileInput">推荐图片</label>
+                                <div class="controls">
+                                    <input class="input-file uniform_on" id="fileInput1" type="file"
+                                           onchange="uploadFile(1);">
+                                    <input type="hidden" id="file1">
+                                </div>
+                            </div>
+
+
+                            {#对应公寓#}
+                            <div class="control-group">
+                                <label class="control-label" for="selectError3">对应公寓</label>
+                                <div class="controls">
+                                    <select id="address">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                {#<button type="submit" class="btn btn-primary">保存</button>#}
+                                <button type="button" class="btn btn-primary" onclick="addRecommend();">保存</button>
+                                <button type="button" class="btn" onclick="location.href='/add_recommend'">重置</button>
+                            </div>
+                        </fieldset>
+                    </form>
+
+                </div>
+            </div><!--/span-->
+
+        </div><!--/row-->
+
+
+    </div><!--/.fluid-container-->
+
+    <!-- end: Content -->
+{% endblock %}

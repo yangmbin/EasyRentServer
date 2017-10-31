@@ -161,6 +161,50 @@ def edit_contact():
 
     return render_template('edit_contact.html')
 
+# 主页banner图列表
+@app.route('/banner_list', methods=['GET', 'POST'])
+def banner_list():
+    return render_template('banner_list.html')
+
+# 添加banner
+@app.route('/add_banner', methods=['GET', 'POST'])
+def add_banner():
+    if request.method == 'POST':
+        check_session_validation()
+        DBSession.execute(text('insert into banner(image, houseid) values(:image, :houseid)'), request.form)
+        DBSession.commit()
+        flash('添加成功')
+        return jsonify({'code': 200, 'msg': '添加成功'})
+    return render_template('add_banner.html')
+
+# 获取所有租房信息
+@app.route('/get_all_house_info', methods=['GET', 'POST'])
+def get_all_house_info():
+    check_session_validation()
+    res = DBSession.execute(text('select * from house order by id DESC'), {})
+    rows = res.fetchall()
+    jsonData = json.dumps([(dict(row.items())) for row in rows])
+    DBSession.commit()
+    return jsonData
+
+
+# 推荐公寓添加
+@app.route('/add_recommend', methods=['GET', 'POST'])
+def add_recommend():
+    if request.method == 'POST':
+        check_session_validation()
+        DBSession.execute(text('insert into recommend(image, houseid) values(:image, :houseid)'), request.form)
+        DBSession.commit()
+        flash('添加成功')
+        return jsonify({'code': 200, 'msg': '添加成功'})
+    return render_template('add_recommend.html')
+
+
+# 主页推荐公寓列表
+@app.route('/recommend_list', methods=['GET', 'POST'])
+def recommend_list():
+    return render_template('recommend_list.html')
+
 # ====================================================================客户端相关接口====================================================================
 # 每次请求完毕后，移除数据库session
 @app.teardown_appcontext
@@ -242,4 +286,26 @@ def get_contact():
     DBSession.commit()
 
     print jsonData
+    return jsonData
+
+
+# 获取banner公寓列表
+@app.route('/get_banner_house_list')
+def get_banner_house_list():
+    check_session_validation()
+    res = DBSession.execute( text('select * from house, banner where house.id = banner.houseid'), {})
+    rows = res.fetchall()
+    jsonData = json.dumps([(dict(row.items())) for row in rows])
+    DBSession.commit()
+    return jsonData
+
+
+# 获取推荐公寓列表
+@app.route('/get_recommend_house_list')
+def get_recommend_house_list():
+    check_session_validation()
+    res = DBSession.execute(text('select * from house, recommend where house.id = recommend.houseid'), {})
+    rows = res.fetchall()
+    jsonData = json.dumps([(dict(row.items())) for row in rows])
+    DBSession.commit()
     return jsonData
