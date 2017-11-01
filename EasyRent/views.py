@@ -9,7 +9,7 @@ from sqlalchemy import text, select
 import json
 from urllib import urlopen, quote
 
-from EasyRent import app, DBSession
+from EasyRent import app, DBSession, imageServer
 
 
 # 贵漂公寓主页
@@ -161,10 +161,20 @@ def edit_contact():
 
     return render_template('edit_contact.html')
 
+
 # 主页banner图列表
 @app.route('/banner_list', methods=['GET', 'POST'])
 def banner_list():
-    return render_template('banner_list.html')
+    check_session_validation()
+    res = DBSession.execute(text('select * from house, banner where house.id = banner.houseid'), {})
+    rows = res.fetchall()
+    jsonData = json.dumps([(dict(row.items())) for row in rows])
+    DBSession.commit()
+    res = json.loads(jsonData)
+    for item in res:
+        item['image'] = imageServer + item['image']
+    return render_template('banner_list.html', bannerList=res)
+
 
 # 添加banner
 @app.route('/add_banner', methods=['GET', 'POST'])
@@ -203,7 +213,33 @@ def add_recommend():
 # 主页推荐公寓列表
 @app.route('/recommend_list', methods=['GET', 'POST'])
 def recommend_list():
-    return render_template('recommend_list.html')
+    check_session_validation()
+    res = DBSession.execute(text('select * from house, recommend where house.id = recommend.houseid'), {})
+    rows = res.fetchall()
+    jsonData = json.dumps([(dict(row.items())) for row in rows])
+    DBSession.commit()
+    res = json.loads(jsonData)
+    for item in res:
+        item['image'] = imageServer + item['image']
+    return render_template('recommend_list.html', recommendList=res)
+
+
+# 删除banner公寓条目
+@app.route('/delete_banner', methods=['GET', 'POST'])
+def delete_banner():
+    check_session_validation()
+    DBSession.execute(text('delete from banner where id=:id'), request.form)
+    DBSession.commit()
+    return ""
+
+# 删除推荐公寓条目
+@app.route('/delete_recommend', methods=['GET', 'POST'])
+def delete_recommend():
+    check_session_validation()
+    DBSession.execute(text('delete from recommend where id=:id'), request.form)
+    DBSession.commit()
+    return ""
+
 
 # ====================================================================客户端相关接口====================================================================
 # 每次请求完毕后，移除数据库session
