@@ -67,12 +67,8 @@
                                 </td>
                                 <td class="center">{{ item.city + item.region + item.address }}</td>
                                 <td class="center">
-                                    <a class="btn btn-info" href="#">
-                                        <i class="halflings-icon white edit"></i>
-                                    </a>
-                                    <a class="btn btn-danger" href="javascript:setCurrentId({{ item.id }});">
-                                        <i class="halflings-icon white trash"></i>
-                                    </a>
+                                    <button class="btn btn-small btn-primary">编辑</button>
+							        <button class="btn btn-small btn-danger" onclick="setCurrentId({{ item.id }});">删除</button>
                                 </td>
                             </tr>
                         {% endfor %}

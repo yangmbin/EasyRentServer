@@ -50,7 +50,8 @@ def login():
 @app.route('/index')
 def index():
     if 'is_login' in session and session['is_login']:
-        return render_template('index.html')
+        #return render_template('index.html')
+        return redirect('house_list')
     else:
         return redirect(url_for('login'))
 
@@ -240,6 +241,34 @@ def delete_recommend():
     DBSession.commit()
     return ""
 
+
+# 租房列表（所有）
+@app.route('/house_list', methods=['GET', 'POST'])
+def house_list():
+    check_session_validation()
+    res = DBSession.execute(text('select * from house'), {})
+    rows = res.fetchall()
+    jsonData = json.dumps([(dict(row.items())) for row in rows])
+    DBSession.commit()
+    res = json.loads(jsonData)
+    for item in res:
+        images = item['images'].split(',')
+        item['image'] = imageServer + images[0]
+    return render_template('house_list.html', houseList=res)
+
+
+# 删除公寓
+@app.route('/delete_house', methods=['GET', 'POST'])
+def delete_house():
+    check_session_validation()
+    try:
+        DBSession.execute(text('delete from house where id=:id'), request.form)
+        DBSession.execute(text('delete from banner where houseid=:id'), request.form)
+        DBSession.execute(text('delete from recommend where houseid=:id'), request.form)
+        DBSession.commit()
+    except:
+        DBSession.rollback()
+    return ""
 
 # ====================================================================客户端相关接口====================================================================
 # 每次请求完毕后，移除数据库session
