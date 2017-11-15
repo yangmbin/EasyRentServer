@@ -1,9 +1,11 @@
 {% extends "base.html" %}
-{% block content %}
 
+{% block ready %}
+
+{% endblock %}
     <script>
         // 获取所有租房信息，用于下拉框显示
-        window.onload = function () {
+        $(function () {
             var message = '{{ get_flashed_messages()[0] }}';
             if (message != undefined && message != '')
                 noty({text: message, layout: "center", timeout: 1000});
@@ -15,8 +17,11 @@
                     $("#address").append("<option value=" + obj[i].id + ">" + obj[i].city + obj[i].region + obj[i].address + "</option>");
                 }
             });
-        }
+        });
+    </script>
+{% block content %}
 
+    <script>
         // 上传图片函数
         function uploadFile(obj) {
             var myform = new FormData();

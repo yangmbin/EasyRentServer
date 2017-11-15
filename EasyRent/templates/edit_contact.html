@@ -1,17 +1,21 @@
 {% extends "base.html" %}
-{% block content %}
 
+{% block ready %}
     <script>
         // 获取联系方式，显示在页面
-        window.onload = function () {
+        $(function () {
             var url = "/get_contact";
             $.get(url, function (result) {
                 var obj = JSON.parse(result);
                 $("#contact").val(obj.phone);
             });
-        }
+        });
+    </script>
+{% endblock %}
 
+{% block content %}
 
+    <script>
         // 修改联系方式
         function editContact() {
             var url = "/edit_contact";
