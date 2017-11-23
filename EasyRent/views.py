@@ -15,7 +15,12 @@ from EasyRent import app, DBSession, imageServer
 # 贵漂公寓主页
 @app.route('/')
 def main_page():
-    return render_template('mainpage.html')
+    return render_template('/guipiao_web_template/index.html')
+# 贵漂公寓关于
+@app.route('/about')
+def about():
+    return render_template('/guipiao_web_template/about.html')
+
 
 
 # 登录函数

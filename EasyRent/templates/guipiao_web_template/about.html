@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>贵漂公寓</title>
+	<meta name="keywords" content="贵漂公寓" />
+	<link rel="stylesheet" href="../../static/guipiao_web_static/css/reset.css"> <!-- CSS reset -->
+	<link rel="stylesheet" href="../../static/guipiao_web_static/css/style.css"> <!-- Resource style -->
+	<link rel="stylesheet" href="../../static/guipiao_web_static/lib/layui/css/layui.css"> <!-- layui -->
+	<link rel="icon" href="../../static/guipiao_web_static/img/favicon.ico" type="image/x-icon"/>
+	<style>
+	body{ font-family: "microsoft yahei";}
+</style>
+</head>
+<body>
+
+
+	<div id="nav" class="nav-trans">
+		<div class="layui-fluid">
+			<div class="layui-row content-center-vertical">
+				<div class="layui-col-lg8">
+					<img src="../../static/guipiao_web_static/img/logo.png">
+				</div>
+				<div class="layui-col-lg4">
+					<ul class="layui-nav" lay-filter="" style="background-color: transparent;">
+						<li class="layui-nav-item"><a href="/">首页</a></li>
+						<li class="layui-nav-item layui-this"><a href="/about">关于贵漂</a></li>
+						<li class="layui-nav-item"><a href="javascript:tips();">贵漂社区</a></li>
+						<li class="layui-nav-item"><a href="javascript:tips();">签名墙</a></li>
+					</ul>
+				</div>
+			</div>
+		</div> 
+	</div>
+
+
+	<section id="section1" class="cd-section" style="position: absolute;" data-stellar-ratio="0.5">
+		<div class="matchwd">
+			<div class="content-center" style="position: relative;width: 100%;height: 100%;background-image: url('http://oxcptmnzi.bkt.clouddn.com/about_banner.jpg');background-size: cover;background-position: 50%;">
+				<a href="javascript:;"><img id="arrow_down" src="../../static/guipiao_web_static/img/arrow_down.png" width="100px" height="100px" style="position: absolute;bottom: 20px;"></a>
+			</div>
+		</div>
+	</section><!-- cd-section -->
+
+	<!-- <section id="section2" class="cd-section" style="position: absolute;margin-top: 100vh;" data-stellar-ratio="1">
+		<div class="matchwd" style="background-color: white;">
+			<div class="layui-row" class="matchwd">
+				<div class="layui-col-lg6">
+					<div style="position: relative;width: 100%;height: 133px;margin-left: 130px;">
+						<img src="../../static/guipiao_web_static/img/icon_about.png" style="z-index: 1;position: absolute;">
+						<div style="z-index: 2;position: absolute;color: #1b1b1b;font-size: 40px;text-align: justify;bottom: 0;left: 0;">关于我们</div>
+					</div>
+
+					<div style="position: relative;">
+						<p class="about-intro">贵漂公寓成立于2017年，是贵阳首家互联网+公寓+社区，致力于通过打造以公寓为核心的生活服务平台，为都市白领提供长期居住的青年公寓。让在城市打拼的青年人群找到一个温暖的家。
+						</p>
+						<p class="about-intro">贵漂公寓社区汇集了真诚、快乐、分享、奉献等社会生活急需的正能量元素，我们致力于整合有创意的租住方式、多元化的青年人群、互补性的生活资源，塑造一个有趣、信任、开放的社区生态，并通过共享经济和社群经济影响一代青年人的价值观，让生活于此的都市青年找到灵魂休息的温暖港湾。
+						</p>
+					</div>
+				</div>
+
+				<div class="layui-col-lg6" style="padding-left: 120px;padding-right: 120px;height: 100%;">
+					<img src="../../static/guipiao_web_static/img/about_intro.png" style="width: 100%;height: 100%;">
+				</div>
+			</div>
+		</div>
+	</section> --><!-- cd-section -->
+
+
+	<section id="section2" class="cd-section" style="position: absolute;margin-top: 100vh;" data-stellar-ratio="1">
+		<div class="matchwd" style="background-color: white;">
+
+			<div style="height: 100%;" class="layui-row">
+				<div style="height: 100%;display: table;" class="layui-col-lg6">
+					<div style="display: table-cell;text-align: center;vertical-align: middle;">
+					<img src="../../static/guipiao_web_static/img/icon_about.png" style="width: 100%;padding-left: 130px;padding-right: 130px;padding-bottom: 30px;"><br>
+						<p class="about-intro">贵漂公寓成立于2017年，是贵阳首家互联网+公寓+社区，致力于通过打造以公寓为核心的生活服务平台，为都市白领提供长期居住的青年公寓。让在城市打拼的青年人群找到一个温暖的家。
+						</p><br><br>
+						<p class="about-intro">贵漂公寓社区汇集了真诚、快乐、分享、奉献等社会生活急需的正能量元素，我们致力于整合有创意的租住方式、多元化的青年人群、互补性的生活资源，塑造一个有趣、信任、开放的社区生态，并通过共享经济和社群经济影响一代青年人的价值观，让生活于此的都市青年找到灵魂休息的温暖港湾。
+						</p>
+					</div>
+				</div>
+				<div style="height: 100%;display: table;" class="layui-col-lg6">
+					<div style="display: table-cell;text-align: center;vertical-align: middle;">
+						<img src="http://oxcptmnzi.bkt.clouddn.com/about_intro.jpg" style="width: 100%;padding-left: 100px;padding-right: 100px;">
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</section>
+
+
+	<div style="position: absolute;margin-top: 200vh;width: 100%;height: 100%;">
+		<section id="section5" class="cd-section">
+			<div class="matchwd">
+				<div style="height: 30%;background-color: white;"></div>
+				<div style="height: 70%;background-image: url('http://oxcptmnzi.bkt.clouddn.com/mainpage3.jpg');background-size: cover;background-position: 50%;">
+					<div style="height: 80%;">
+					
+					</div>
+					<div style="height: 20%;">
+						<div class="layui-row content-center" style="font-size: 20px;height: 60%;">
+							<div class="layui-col-lg2 bottom-nav" align="center"><a href="/about">关于贵漂</a></div>
+							<div class="layui-col-lg2 bottom-nav" align="center">
+								<span class="QRcode_WX off" onmouseover="this.className='QRcode_WX on';" onmouseout="this.className='QRcode_WX off';">
+									<a>联系我们</a>
+									<img src="../../static/guipiao_web_static/img/phone.png" style="position: absolute;top: -150px;left: 90px;" width="140" height="140">
+								</span>
+							</div>
+							<div class="layui-col-lg2 bottom-nav" align="center">
+								<span class="QRcode_WX off" onmouseover="this.className='QRcode_WX on';" onmouseout="this.className='QRcode_WX off';">
+									<a>微信</a>
+									<img src="../../static/guipiao_web_static/img/WX_code.png" style="position: absolute;top: -150px;left: 90px;" width="140" height="140">
+								</span>
+							</div>
+							<div class="layui-col-lg2 bottom-nav" align="center">
+								<span class="QRcode_XCX off" onmouseover="this.className='QRcode_XCX on';" onmouseout="this.className='QRcode_XCX off';">
+									<a>小程序</a>
+									<img src="../../static/guipiao_web_static/img/WX_code.png" style="position: absolute;top: -150px;left: 90px;" width="140" height="140">
+								</span>
+							</div>
+						</div>
+						<div align="center" class="bottom-nav"><a target="view_window" style="font-size: 20px;height: 40%;" href="http://www.miitbeian.gov.cn/">备案号：黔ICP备17009867号</a></div>
+					</div>
+				</div>
+			</div>
+		</section><!-- cd-section -->
+	</div>
+
+	
+
+	<!-- <div style="width: 100%; height: 50px; line-height: 50px; text-align: center;">
+		更多网页特效，请访问<a href="http://www.5iweb.com.cn"><b>网页特效库</b></a>,欢迎加入网页特效库QQ交流群：258242983
+	</div> -->
+	<script src="../../static/guipiao_web_static/js/jquery-2.1.4.js"></script>
+	<script src="../../static/guipiao_web_static/js/jquery.stellar.min.js"></script>
+
+	<script type="text/javascript">
+		window.onscroll = function() {
+			// 第二个section距离顶部的高度
+			var distance = $("#section2").offset().top;
+			// 已经滑动的距离，也即是向上滑动时，已经隐藏的高度
+			var currentScrollHeight = $(window).scrollTop();
+
+			console.log(distance + "," + currentScrollHeight);
+			if (currentScrollHeight >= distance)
+				$("#nav").css({"background": "rgba(34,34,34,1.0)"});
+			else
+				$("#nav").css({"background": "rgba(34,34,34,0.0)"});
+		}
+
+		// 滚动视差
+		$.stellar();
+</script>
+
+<!-- layui -->
+<script src="../../static/guipiao_web_static/lib/layui/layui.all.js"></script>
+<script>
+	;!function(){
+		var carousel = layui.carousel;
+		var element = layui.element;
+  		//建造实例
+  		carousel.render({
+  			elem: '#topbanner'
+  			,width: '100%'
+  			,height: '100%'
+  			,indicator: 'none'
+  		});
+
+  	}();
+
+  	function tips() {
+  		;!function(){
+			var layer = layui.layer;
+			layer.msg('敬请期待');
+	  	}();
+  			
+	}
+
+	// 点击下拉箭头动画
+	$(function() {
+		$('#arrow_down').on('click', function(event) {
+			event.preventDefault();
+			var targetOffset = $('#section2').offset().top;
+			$('html,body').animate({scrollTop:targetOffset}, 500);
+		});
+	});
+  </script> 
+  <!-- end layui -->
+
+</body>
+</html>
