@@ -537,18 +537,15 @@ no-js
   color: #363636;
   margin-left: 130px;
 }
+.bottom-nav {padding: 0 40px 0 40px;}
 .bottom-nav a {color:white;}
 .bottom-nav a:hover {color: rgba(255,255,255,.7);;}
 
-// 鼠标悬停二维码相关
-.QRcode_WX.on img {
-  position: absolute;top: -150px;left: 90px;display: block;
-}
-.QRcode_WX.off img {
-  display: none;
-}
+/*鼠标悬停二维码相关*/
+.QRcode_XCX {position: relative;}
+
 .QRcode_XCX.on img {
-  position: absolute;top: -150px;left: 90px;display: block;
+  display: inline-block;
 }
 .QRcode_XCX.off img {
   display: none;
